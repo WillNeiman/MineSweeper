@@ -1,4 +1,4 @@
-package com.will.Minesweeper.Board;
+package com.will.Minesweeper.service;
 
 import org.springframework.stereotype.Component;
 
@@ -12,7 +12,7 @@ public class Tester {
 
         MineBoardGenerator boardGenerator = new MineBoardGenerator();
         BoardProcess boardProcess = new BoardProcess();
-        MineSweeperProcessor boardProcessNext = new MineSweeperProcessor();
+        MineSweeperProcessor processor = new MineSweeperProcessor();
         Scanner scanner = new Scanner(System.in);
 
         boolean playAgain;
@@ -38,17 +38,17 @@ public class Tester {
                 System.out.println("Clicked Position: (" + y + ", " + x + ")");
 
                 // 생성한 board와 좌표값 y, x를 이용해 지뢰찾기 로직 실행
-                String[] result = boardProcessNext.process(board, y, x);
+                String[] result = processor.process(board, y, x);
                 System.out.println("Result Board:");
                 for (int i = 0; i < result.length; i++) {
                     System.out.println(result[i]);
                 }
 
                 // 승리 조건 확인
-                if (boardProcessNext.isVictory()) {
+                if (processor.isVictory()) {
                     System.out.println("Congratulations! You won!");
                     gameEnded = true;
-                } else if (boardProcessNext.isGameOver(result)) {
+                } else if (processor.isGameOver(result)) {
                     System.out.println("Game over! You stepped on a mine.");
                     gameEnded = true;
                 }

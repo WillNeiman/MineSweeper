@@ -1,4 +1,6 @@
-package com.will.Minesweeper.Board;
+package com.will.Minesweeper.service;
+
+import org.springframework.stereotype.Component;
 
 // y, x 좌표 저장
 class Position {

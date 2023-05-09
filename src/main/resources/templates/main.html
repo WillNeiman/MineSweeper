@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>지레차끼</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #383838;
+        }
+
+        .input-container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-container label {
+            font-size: 18px;
+            margin-right: 10px;
+            color: #383838;
+        }
+
+        .input-container input[type="number"] {
+            font-size: 18px;
+            padding: 8px;
+            border: 2px solid #cccccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .button {
+            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #5d5d5d;
+            color: #f7f7f7;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #383838;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <img src="/resources/images/title.png" alt="Title Image">
+    <h1>Minesweeper</h1>
+    <form action="/startGame" method="post">
+        <div class="input-container">
+            <label for="board-size-input">게임판 크기</label>
+            <input type="number" id="board-size-input" name="boardSize" min="3" max="15" required th:value="${boardSize}"
+            placeholder="숫자 입력">
+        </div>
+        <div class="input-container">
+            <label for="mine-quantity-input">지뢰 수</label>
+            <input type="number" id="mine-quantity-input" name="mineQuantity" min="1" required th:value="${mineQuantity}"
+            placeholder="숫자 입력">
+        </div>
+        <input type="submit" class="button" id="start-button" value="Start Game">
+    </form>
+</div>
+</body>
+</html>

@@ -1,8 +1,11 @@
-package com.will.Minesweeper.Board;
+package com.will.Minesweeper.service;
+
+import org.springframework.stereotype.Component;
 
 import java.util.LinkedList;
 import java.util.Queue;
 
+@Component
 public class BoardProcess {
 
     // 8방향을 나타내는 상수 배열 미리 깔아두기

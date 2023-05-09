@@ -1,4 +1,4 @@
-package com.will.Minesweeper.Board;
+package com.will.Minesweeper.service;
 
 public class MineBoard {
     private char[][] initialBoard;

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>지뢰찾기</title>
+    <style>
+        body {
+            background-color: #f7f7f7;
+            font-family: Arial, sans-serif;
+        }
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+        }
+
+        h1 {
+            font-size: 36px;
+            margin-bottom: 20px;
+            color: #383838;
+        }
+
+        .input-container {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .input-container label {
+            font-size: 18px;
+            margin-right: 10px;
+            color: #383838;
+        }
+
+        .input-container input[type="number"] {
+            font-size: 18px;
+            padding: 8px;
+            border: 2px solid #cccccc;
+            border-radius: 5px;
+            width: 100%;
+            max-width: 200px;
+        }
+
+        .button {
+            margin-top : 30px;
+            font-size: 20px;
+            padding: 10px 20px;
+            border-radius: 5px;
+            background-color: #5d5d5d;
+            color: #f7f7f7;
+            text-decoration: none;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #383838;
+        }
+
+        /* 추가된 게임 보드 스타일 */
+        .board {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+            gap: 10px;
+        }
+
+        .cell {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 50px;
+            height: 50px;
+            border: 2px solid #cccccc;
+            border-radius: 5px;
+            cursor: pointer;
+            user-select: none; /* 드래그 방지 */
+        }
+
+        /* 새로운 스타일 추가 */
+        .mine {
+            color: transparent;
+            text-shadow: none;
+        }
+
+        .blank {
+            color: transparent;
+            text-shadow: none;
+            background-color: #cccccc;
+            pointer-events: none; /* 클릭 방지 */
+        }
+
+        .number {
+            color: #0077ff; /* 원하는 색깔로 변경 */
+            pointer-events: none; /* 클릭 방지 */
+            font-weight : bold;
+        }
+
+        .stepped {
+            background-color : red;
+        }
+        .image-mine {
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Minesweeper</h1>
+    <div class="board">
+        <table class="board">
+            <tbody>
+            <!-- 2차원 배열 반복문 시작 -->
+            <tr th:each="row, yStat : ${session.board}">
+                <!-- 현재 행의 요소 반복문 시작 -->
+                <td th:each="cell, xStat : ${row}">
+                    <div th:text="${cell}"
+                         class="cell"
+                         th:data-x="${xStat.index}"
+                         th:data-y="${yStat.index}"
+                         th:onclick="'clickCell(this)'"
+                         th:classappend="${cell} == 'M' or ${cell} == 'E' ? 'mine' : (${cell} == 'B' ? 'blank' : (${cell} == 'X' ? 'stepped' : 'number'))">
+                         <img th:src="@{/images/mine.png}" style="opacity: ${cell == 'X' ? 1 : 0};"/>
+                    </div>
+                </td>
+                <!-- 현재 행의 요소 반복문 종료 -->
+            </tr>
+            <!-- 2차원 배열 반복문 종료 -->
+            </tbody>
+        </table>
+    </div>
+<!--    <img th:src="@{/images/mine.png}" class="image-mine"/>-->
+    <!-- 승리 및 패배 메시지 추가 -->
+    <h2 th:if="${session.isVictory}" style="color:green;">2김!</h2>
+    <h2 th:if="${session.isGameOver}" style="color:red;">망함!</h2>
+
+    <a href="/" class="button">때려치기</a>
+</div>
+
+    <!-- Hidden form for cell click event -->
+    <form id="cellClickForm" th:action="@{/process}" method="post" style="display: none;">
+        <input type="hidden" id="x" name="x">
+        <input type="hidden" id="y" name="y">
+        <input type="hidden" id="board" name="board" th:value="${#strings.arrayJoin(board, ',')}">
+    </form>
+    <script>
+        function clickCell(element) {
+            var x = element.getAttribute('data-x');
+            var y = element.getAttribute('data-y');
+            document.getElementById('x').value = x;
+            document.getElementById('y').value = y;
+            document.getElementById('cellClickForm').submit();
+        }
+    </script>
+</body>
+</html>
