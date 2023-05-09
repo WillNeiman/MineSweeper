@@ -12,12 +12,12 @@ public class MineSweeperProcessor {
     private MineBoard board;
 
     public String[] process(String[] newBoard, int y, int x) {
-
-        board = new MineBoard(newBoard);
+        this.board = new MineBoard(newBoard);
         int height = board.getHeight();
         int width = board.getWidth();
         char[][] initialBoard = board.getInitialBoard();
         char[][] resultBoard = board.getResultBoard();
+        String[] result = new String[height];
 
         // 눌렀는데 지뢰가 있으면 X로 표기한 후 결과 반환
         if (initialBoard[y][x] == 'M') {
@@ -30,9 +30,9 @@ public class MineSweeperProcessor {
                     }
                 }
         // 인자로 주어진 객체가 문자 배열(char[])이므로, 배열의 모든 문자를 순서대로 하나의 문자열로 연결하여 반환
-                newBoard[i] = String.valueOf(resultBoard[i]);
+                result[i] = String.valueOf(resultBoard[i]);
             }
-            return newBoard;
+            return result;
         }
 
         // 지뢰가 없을 시 BFS 전략을 사용해보기
@@ -79,14 +79,13 @@ public class MineSweeperProcessor {
 
         // 최종 결과를 문자열 배열로 변환하여 반환하기 ver2
         for (int i = 0; i < height; i++) {
-            for (int j = 0; j < width; j++) {
-                if (resultBoard[i][j] == 'M' || resultBoard[i][j] == '0') {
-                    resultBoard[i][j] = 'E';
-                }
-            }
+//            for (int j = 0; j < width; j++) {
+//                if (resultBoard[i][j] == 'M' || resultBoard[i][j] == '0') {
+//                    resultBoard[i][j] = 'E';
+//                }
+//            }
             newBoard[i] = String.valueOf(resultBoard[i]);
         }
-
         return newBoard;
     }
 

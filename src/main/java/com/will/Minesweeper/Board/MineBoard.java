@@ -37,6 +37,15 @@ public class MineBoard {
         return resultBoard;
     }
 
+    public void setInitialBoard(String[] board) {
+        int height = board.length;
+        int width = board[0].length();
+        for (int i = -0; i < height; i++) {
+            // board의 각 문자열을 2차원 배열의 행으로 바꿔준다.
+            this.initialBoard[i] = board[i].toCharArray();
+        }
+    }
+
     public void setResultBoard(String[] board) {
         int height = board.length;
         int width = board[0].length();

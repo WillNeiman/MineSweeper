@@ -18,8 +18,8 @@ public class Tester {
         boolean playAgain;
         do {
             // 지뢰판 만들기
-            int n = 4; // 지뢰 개수
-            int boardSize = 3 + new Random().nextInt(8); // 보드 크기 (3 ~ 30)
+            int n = 2; // 지뢰 개수
+            int boardSize = 3 + new Random().nextInt(4); // 보드 크기 (3 ~ 30)
             String[] board = boardGenerator.generateRandomBoard(n, boardSize);
 
             // 지뢰판 콘솔 출력하기
