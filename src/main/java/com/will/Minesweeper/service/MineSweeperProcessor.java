@@ -78,6 +78,13 @@ public class MineSweeperProcessor {
                 }
             }
         }
+        System.out.println("Result Board:");
+        for (int i = 0; i < resultBoard.length; i++) {
+            for (int j = 0; j < resultBoard[0].length; j++){
+                System.out.print(resultBoard[i][j] + " ");
+            }
+            System.out.println();
+        }
 
         // 최종 결과 반환
         return resultBoard;

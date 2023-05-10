@@ -33,13 +33,7 @@ public class MineSweeperController {
 
         // 보드 생성
         char[][] board = generator.generateBoard(mineQuantity, boardSize);
-        System.out.println("Generated Board:");
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++){
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
+
         boolean isVictory = false;
         boolean isGameOver = false;
         System.out.println("isVictory = " + isVictory);
@@ -59,23 +53,9 @@ public class MineSweeperController {
         System.out.println("Clicked Position: (" + y + ", " + x + ")");
 
         char[][] board = (char[][]) session.getAttribute("board");
-        System.out.println("Current Board:");
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++){
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
 
         // 게임 로직 처리
         board = processor.process(board, y, x);
-        System.out.println("Result Board:");
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++){
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
 
         boolean isVictory = processor.isVictory();
         boolean isGameOver = processor.isGameOver(board);

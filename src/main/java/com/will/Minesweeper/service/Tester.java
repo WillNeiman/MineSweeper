@@ -1,5 +1,4 @@
 package com.will.Minesweeper.service;
-
 import org.springframework.stereotype.Component;
 
 import java.util.Random;
@@ -11,7 +10,6 @@ public class Tester {
     public static void main(String[] args) {
 
         MineBoardGenerator boardGenerator = new MineBoardGenerator();
-        BoardProcess boardProcess = new BoardProcess();
         MineSweeperProcessor processor = new MineSweeperProcessor();
         Scanner scanner = new Scanner(System.in);
 
