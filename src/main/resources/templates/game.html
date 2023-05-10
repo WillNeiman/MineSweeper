@@ -7,6 +7,7 @@
 </head>
 <body>
 <div class="container">
+    <!-- 승리 및 패배 메시지 변경 -->
     <h2 th:if="${session.isVictory == false && session.isGameOver == false}">지뢰밟기</h2>
     <h2 th:if="${session.isVictory}" style="color:red;">뭐하시는 거죠? 왜 지뢰를 안밟으세요?</h2>
     <h2 th:if="${session.isGameOver}" style="color:green;">축하합니다! 성공적으로 지뢰를 밟았읍니다!</h2>
@@ -32,16 +33,16 @@
             </tbody>
         </table>
     </div>
-    <!-- 승리 및 패배 메시지 추가 -->
     <img th:if=${session.isVictory} src="/images/victory.jpg" class="result_image" alt="Victory Image">
     <img th:if=${session.isGameOver} src="/images/gameover.jpg" class="result_image" alt="GameOver Image">
 
+    <!-- 승리 및 패배 버튼 문구 메시지 변경 -->
     <a th:if="${session.isVictory == false && session.isGameOver == false}" href="/" class="button">때려치기</a>
     <a th:if="${session.isVictory}" href="/" class="button">패배자♡ 허접♡</a>
     <a th:if="${session.isGameOver}" href="/" class="button">지뢰 더 밟으러 가기</a>
 </div>
 
-    <!-- Hidden form for cell click event -->
+    <!-- 셀 정보를 할당하기 위한 히든 폼 -->
     <form id="cellClickForm" th:action="@{/process}" method="post" style="display: none;">
         <input type="hidden" id="x" name="x">
         <input type="hidden" id="y" name="y">

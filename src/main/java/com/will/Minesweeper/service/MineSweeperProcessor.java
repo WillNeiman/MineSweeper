@@ -20,7 +20,6 @@ public class MineSweeperProcessor {
         int height = board.getHeight();
         int width = board.getWidth();
         char[][] initialBoard = board.getInitialBoard();
-        System.out.println("initialBoard[0][0] = " + initialBoard[0][0]);
         char[][] resultBoard = board.getResultBoard();
 
         // 눌렀는데 지뢰가 있으면 X로 표기한 후 결과 반환
@@ -106,7 +105,7 @@ public class MineSweeperProcessor {
             }
         }
         // 모든 칸을 순회했음에도 이런 조건을 만족하는 칸이 하나도 없다면,
-        // 즉 "지뢰가 아닌 모든 칸을 찾았다면", 게임에서 승리했다는 것을 의미하므로 true를 반환
+        // 즉 "지뢰가 아닌 모든 칸을 찾았다면", 게임에서 승리했다는 것을 의미하므로 true 반환
         return true;
     }
 
