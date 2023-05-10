@@ -1,0 +1,101 @@
+body {
+    background-color: #f7f7f7;
+    font-family: Arial, sans-serif;
+}
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+    color: #383838;
+}
+
+.input-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.input-container label {
+    font-size: 18px;
+    margin-right: 10px;
+    color: #383838;
+}
+
+.input-container input[type="number"] {
+    font-size: 18px;
+    padding: 8px;
+    border: 2px solid #cccccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 200px;
+}
+
+.button {
+    margin-bottom : 50px;
+    font-size: 20px;
+    padding: 10px 20px;
+    border-radius: 5px;
+    background-color: #5d5d5d;
+    color: #f7f7f7;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #383838;
+}
+
+/* 추가된 게임 보드 스타일 */
+.board {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(50px, 1fr));
+    gap: 10px;
+}
+
+.cell {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 50px;
+    height: 50px;
+    border: 2px solid #cccccc;
+    border-radius: 5px;
+    cursor: pointer;
+    user-select: none; /* 드래그 방지 */
+}
+
+/* 새로운 스타일 추가 */
+.mine {
+    color: transparent;
+    text-shadow: none;
+}
+
+.blank {
+    color: transparent;
+    text-shadow: none;
+    background-color: #cccccc;
+    pointer-events: none; /* 클릭 방지 */
+}
+
+.number {
+    color: #0077ff;
+    pointer-events: none; /* 클릭 방지 */
+    font-weight : bold;
+}
+
+.stepped {
+    background-color: red;
+    pointer-events: none; /* 클릭 방지 */
+}
+
+.result_image{
+    margin-top: 30px;
+    margin-bottom: 30px;
+}

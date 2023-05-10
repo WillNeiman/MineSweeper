@@ -20,12 +20,15 @@ public class Tester {
             // 지뢰판 만들기
             int n = 2; // 지뢰 개수
             int boardSize = 3 + new Random().nextInt(4); // 보드 크기 (3 ~ 30)
-            String[] board = boardGenerator.generateRandomBoard(n, boardSize);
+            char[][] board = boardGenerator.generateBoard(n, boardSize);
 
             // 지뢰판 콘솔 출력하기
             System.out.println("Generated Board:");
             for (int i = 0; i < board.length; i++) {
-                System.out.println(board[i]);
+                for (int j = 0; j < board[0].length; j++){
+                    System.out.print(board[i][j] + " ");
+                }
+                System.out.println();
             }
 
             boolean gameEnded = false;
@@ -38,10 +41,13 @@ public class Tester {
                 System.out.println("Clicked Position: (" + y + ", " + x + ")");
 
                 // 생성한 board와 좌표값 y, x를 이용해 지뢰찾기 로직 실행
-                String[] result = processor.process(board, y, x);
+                char[][] result = processor.process(board, y, x);
                 System.out.println("Result Board:");
-                for (int i = 0; i < result.length; i++) {
-                    System.out.println(result[i]);
+                for (int i = 0; i < board.length; i++) {
+                    for (int j = 0; j < board[0].length; j++){
+                        System.out.print(board[i][j] + " ");
+                    }
+                    System.out.println();
                 }
 
                 // 승리 조건 확인

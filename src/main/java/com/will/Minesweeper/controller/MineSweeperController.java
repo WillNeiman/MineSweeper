@@ -1,18 +1,14 @@
 package com.will.Minesweeper.controller;
 
-import com.will.Minesweeper.service.GameResult;
 import com.will.Minesweeper.service.MineBoardGenerator;
 import com.will.Minesweeper.service.MineSweeperProcessor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpSession;
-import java.util.Arrays;
 
 @Controller
 public class MineSweeperController {
@@ -36,19 +32,21 @@ public class MineSweeperController {
         System.out.println("mineQuantity = " + mineQuantity);
 
         // 보드 생성
-        String[] board = generator.generateRandomBoard(mineQuantity, boardSize);
+        char[][] board = generator.generateBoard(mineQuantity, boardSize);
         System.out.println("Generated Board:");
         for (int i = 0; i < board.length; i++) {
-            System.out.println(board[i]);
+            for (int j = 0; j < board[0].length; j++){
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
         }
-
-        // 2차원 문자 배열로 변환
-        char[][] boardArray = new char[board.length][];
-        for (int i = 0; i < board.length; i++) {
-            boardArray[i] = board[i].toCharArray();
-        }
-
-        session.setAttribute("board", boardArray);
+        boolean isVictory = false;
+        boolean isGameOver = false;
+        System.out.println("isVictory = " + isVictory);
+        System.out.println("isGameOver = " + isGameOver);
+        session.setAttribute("board", board);
+        session.setAttribute("isVictory", isVictory);
+        session.setAttribute("isGameOver", isGameOver);
 
         // 게임 페이지로 리다이렉트
         return "game";
@@ -61,28 +59,26 @@ public class MineSweeperController {
         System.out.println("Clicked Position: (" + y + ", " + x + ")");
 
         char[][] board = (char[][]) session.getAttribute("board");
-        String[] result = new String[board.length];
-
-        for (int i = 0; i < board.length; i++) {
-            result[i] = String.valueOf(board[i]);
-        }
         System.out.println("Current Board:");
-        for (int i = 0; i < result.length; i++) {
-            System.out.println(result[i]);
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++){
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
         }
 
         // 게임 로직 처리
-        result = processor.process(result, y, x);
+        board = processor.process(board, y, x);
         System.out.println("Result Board:");
-        for (int i = 0; i < result.length; i++) {
-            System.out.println(result[i]);
+        for (int i = 0; i < board.length; i++) {
+            for (int j = 0; j < board[0].length; j++){
+                System.out.print(board[i][j] + " ");
+            }
+            System.out.println();
         }
 
-        for (int i = 0; i < board.length; i++) {
-            board[i] = result[i].toCharArray();
-        }
         boolean isVictory = processor.isVictory();
-        boolean isGameOver = processor.isGameOver(result);
+        boolean isGameOver = processor.isGameOver(board);
         System.out.println("isVictory = " + isVictory);
         System.out.println("isGameOver = " + isGameOver);
 

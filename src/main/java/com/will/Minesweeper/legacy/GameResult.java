@@ -1,4 +1,4 @@
-package com.will.Minesweeper.service;
+package com.will.Minesweeper.legacy;
 
 public class GameResult {
     private String[] board;

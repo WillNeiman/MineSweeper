@@ -6,8 +6,9 @@ import java.util.Random;
 
 @Component
 public class MineBoardGenerator {
-    // 테스트케이스 랜덤 생성 메소드
-    public String[] generateRandomBoard(int n, int boardSize) {
+
+    // 지뢰판 생성 메소드
+    public char[][] generateBoard(int n, int boardSize) {
         // 지뢰의 수가 boardSize의 제곱보다 클 경우 예외처리
         if(n > Math.pow(boardSize,2)){
             n = (int)Math.pow(boardSize,2);
@@ -57,6 +58,11 @@ public class MineBoardGenerator {
             }
         }
 
-        return board;
+        char[][] newBoard = new char[board.length][board[0].length()];
+        for(int i = 0; i < board.length; i++){
+            newBoard[i] = board[i].toCharArray();
+        }
+
+        return newBoard;
     }
 }

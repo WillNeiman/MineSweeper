@@ -14,35 +14,34 @@ public class MineSweeperProcessor {
 
     private MineBoard board;
 
-    public String[] process(String[] newBoard, int y, int x) {
+    public char[][] process(char[][] newBoard, int y, int x) {
+        // 매 회마다 보드의 상태를 갱신해가며 진행되므로 위해 이전 클릭의 결과를 바탕으로 새로운 객체를 생성함
         this.board = new MineBoard(newBoard);
         int height = board.getHeight();
         int width = board.getWidth();
         char[][] initialBoard = board.getInitialBoard();
+        System.out.println("initialBoard[0][0] = " + initialBoard[0][0]);
         char[][] resultBoard = board.getResultBoard();
-        String[] result = new String[height];
 
         // 눌렀는데 지뢰가 있으면 X로 표기한 후 결과 반환
         if (initialBoard[y][x] == 'M') {
             resultBoard[y][x] = 'X'; // 클릭한 위치의 지뢰를 X로 표시
             for (int i = 0; i < height; i++) {
                 for (int j = 0; j < width; j++) {
-        // 클릭한 위치를 제외한 나머지 위치 중 initialBoard의 M 위치에 해당하는 resultBoard의 좌표값들을 M으로 변경
+                    // 클릭한 위치를 제외한 나머지 위치 중 initialBoard의 M 위치에 해당하는 resultBoard의 좌표값들을 M으로 변경
                     if (initialBoard[i][j] == 'M' && !(i == y && j == x)) {
                         resultBoard[i][j] = 'M';
                     }
                 }
-        // 인자로 주어진 객체가 문자 배열(char[])이므로, 배열의 모든 문자를 순서대로 하나의 문자열로 연결하여 반환
-                result[i] = String.valueOf(resultBoard[i]);
             }
-            return result;
+            return resultBoard;
         }
 
         // 지뢰가 없을 시 BFS 전략을 사용해보기
         Queue<Position> queue = new LinkedList<>();
         queue.offer(new Position(y, x));
 
-        // 지뢰가 없는 위치를 열어나가는 알고리즘
+        // 큐가 빌 때까지 지뢰가 없는 위치를 열어나가는 알고리즘
         while (!queue.isEmpty()) {
             Position currentPosition = queue.poll();
             int mineCount = 0;
@@ -80,16 +79,8 @@ public class MineSweeperProcessor {
             }
         }
 
-        // 최종 결과를 문자열 배열로 변환하여 반환하기 ver2
-        for (int i = 0; i < height; i++) {
-//            for (int j = 0; j < width; j++) {
-//                if (resultBoard[i][j] == 'M' || resultBoard[i][j] == '0') {
-//                    resultBoard[i][j] = 'E';
-//                }
-//            }
-            newBoard[i] = String.valueOf(resultBoard[i]);
-        }
-        return newBoard;
+        // 최종 결과 반환
+        return resultBoard;
     }
 
     public boolean isVictory() {
@@ -100,18 +91,25 @@ public class MineSweeperProcessor {
 
         for (int i = 0; i < height; i++) {
             for (int j = 0; j < width; j++) {
+                //"지뢰가 아닌 칸 중에서 아직 탐색하지 않은 칸이 존재하는 경우"
+                // 아직 게임이 끝나지 않았다는 것을 의미, false 반환
                 if (initialBoard[i][j] != 'M' && resultBoard[i][j] == 'E') {
-                    return false; // 지뢰가 없는 칸이 'E'인 경우가 있으면 승리 조건이 아님
+                    return false;
                 }
             }
         }
-        return true; // 모든 지뢰가 없는 칸이 'E'가 아닌 경우 승리
+        // 모든 칸을 순회했음에도 이런 조건을 만족하는 칸이 하나도 없다면,
+        // 즉 "지뢰가 아닌 모든 칸을 찾았다면", 게임에서 승리했다는 것을 의미하므로 true를 반환
+        return true;
     }
 
-    public boolean isGameOver(String[] resultBoard) {
-        for (String row : resultBoard) {
-            if (row.contains("X")) {
-                return true;
+    public boolean isGameOver(char[][] resultBoard) {
+        for(int i = 0; i < resultBoard.length; i ++){
+            for(int j = 0; j < resultBoard[i].length; j++){
+                // process의 결과 'X'로 변환된 칸, 즉 "지뢰가 있는 자리를 탐색한" 경우 패배처리
+                if(resultBoard[i][j] == 'X'){
+                    return true;
+                }
             }
         }
         return false;
