@@ -13,3 +13,6 @@
 - - SpringWeb
 - - Thymeleaf
 - HTML / CSS / JavaScript
+---
+# 플레이
+https://minesweeper-willneiman.koyeb.app/
