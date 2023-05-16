@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>에-라-페이지</title>
+  <link rel="stylesheet" th:href="@{/css/error.css}">
+</head>
+<body>
+<div class="container">
+  <h1>에-라가 떴따</h1>
+  <p th:text="${message}"></p>
+  <pre class="error-stacktrace" th:text="${stacktrace}"></pre>
+  <a href="/">나쁜거 하면 안돼요. 착한거 해요.</a>
+</div>
+</body>
+</html>
