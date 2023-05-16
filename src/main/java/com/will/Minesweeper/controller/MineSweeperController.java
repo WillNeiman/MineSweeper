@@ -56,7 +56,7 @@ public class MineSweeperController {
                                    @RequestParam("y") Integer y,
                                    HttpSession session) {
         if (x == null || y == null) {
-            throw new IllegalArgumentException("어딜 누르는 겁니까? 그건 지회의 잔상입니다만?");
+            throw new IllegalArgumentException("어딜 누르는 겁니까? 그건 지뢰의 잔상입니다만?");
         }
         System.out.println("Clicked Position: (" + y + ", " + x + ")");
 
