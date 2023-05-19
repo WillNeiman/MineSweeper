@@ -24,22 +24,19 @@ public class MineSweeperController {
         return "main";
     }
 
-    @PostMapping("/startGame")
-    public String startGame(@RequestParam(name = "boardSize") int boardSize,
-                            @RequestParam(name = "mineQuantity") int mineQuantity,
+    @PostMapping("/start")
+    public String startGame(@RequestParam(name = "boardSize") Integer boardSize,
+                            @RequestParam(name = "mineQuantity") Integer mineQuantity,
                             HttpSession session) {
+        if (boardSize == null || boardSize < 3 || boardSize > 15) {
+            throw new IllegalArgumentException("보드 사이즈를 어디선가 이상하게 수정해서 제작자를 시험에 빠뜨리려는 속셈");
+        }
         System.out.println("boardSize = " + boardSize);
         System.out.println("mineQuantity = " + mineQuantity);
 
         // 보드 생성
         char[][] board = generator.generateBoard(mineQuantity, boardSize);
-        System.out.println("Generated Board:");
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++){
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
+
         boolean isVictory = false;
         boolean isGameOver = false;
         System.out.println("isVictory = " + isVictory);
@@ -53,29 +50,20 @@ public class MineSweeperController {
     }
 
     @PostMapping("/process")
-    public String processCellClick(@RequestParam("x") int x,
-                                   @RequestParam("y") int y,
+    public String processCellClick(@RequestParam("x") Integer x,
+                                   @RequestParam("y") Integer y,
                                    HttpSession session) {
+        if (x == null || y == null) {
+            throw new IllegalArgumentException("어딜 누르는 겁니까? 그건 지뢰의 잔상입니다만?");
+        }
         System.out.println("Clicked Position: (" + y + ", " + x + ")");
 
         char[][] board = (char[][]) session.getAttribute("board");
-        System.out.println("Current Board:");
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++){
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
+        if (x < 0 || x >= board[0].length || y < 0 || y >= board.length) {
+            throw new IllegalArgumentException("어이, 그 앞은 '지옥'이다. 지뢰밭으로 돌아오도록.");
         }
-
         // 게임 로직 처리
         board = processor.process(board, y, x);
-        System.out.println("Result Board:");
-        for (int i = 0; i < board.length; i++) {
-            for (int j = 0; j < board[0].length; j++){
-                System.out.print(board[i][j] + " ");
-            }
-            System.out.println();
-        }
 
         boolean isVictory = processor.isVictory();
         boolean isGameOver = processor.isGameOver(board);

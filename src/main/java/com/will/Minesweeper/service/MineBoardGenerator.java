@@ -57,10 +57,19 @@ public class MineBoardGenerator {
                 board[i] = sb.toString();
             }
         }
-
+        // 문자열 1차 배열을 문자타입 2차 배열로 전환
         char[][] newBoard = new char[board.length][board[0].length()];
         for(int i = 0; i < board.length; i++){
             newBoard[i] = board[i].toCharArray();
+        }
+
+        // 생성된 보드 콘솔로 출력
+        System.out.println("Generated Board:");
+        for (int i = 0; i < newBoard.length; i++) {
+            for (int j = 0; j < newBoard[0].length; j++){
+                System.out.print(newBoard[i][j] + " ");
+            }
+            System.out.println();
         }
 
         return newBoard;

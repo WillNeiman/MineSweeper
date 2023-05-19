@@ -10,7 +10,7 @@
 <div class="container">
     <img src="/images/explosion.png" alt="Title Image">
     <h1>지뢰밟기</h1>
-    <form action="/startGame" method="post">
+    <form action="/start" method="post">
         <div class="input-container">
             <label for="board-size-input">지뢰밭 크기</label>
             <input type="number" id="board-size-input" name="boardSize" min="3" max="15" required th:value="${boardSize}"
@@ -19,7 +19,7 @@
         <div class="input-container">
             <label for="mine-quantity-input">지뢰 수</label>
             <input type="number" id="mine-quantity-input" name="mineQuantity" min="1" required th:value="${mineQuantity}"
-            placeholder="1 < 지뢰 <= 지뢰밭 칸">
+            placeholder="0 < 지뢰 <= 지뢰밭 칸">
         </div>
         <input type="submit" class="button" id="start-button" value="게임시작">
     </form>
