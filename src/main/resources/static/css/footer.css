@@ -11,6 +11,7 @@
 }
 
 .developer-info {
+    padding: 10px;
     margin: 0;
 }
 
@@ -23,6 +24,10 @@
     width: 20px;
     height: 20px;
     vertical-align: middle;
+}
+
+.email {
+    font-weight: bold;
 }
 
 .copyright-info {
