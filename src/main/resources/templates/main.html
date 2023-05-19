@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>지뢰밟기</title>
     <link rel="stylesheet" th:href="@{/css/main.css}">
+    <link rel="stylesheet" th:href="@{/css/footer.css}">
 </head>
 <body>
 <div class="container">
@@ -23,5 +24,6 @@
         <input type="submit" class="button" id="start-button" value="게임시작">
     </form>
 </div>
+<div th:replace="footer :: footer"></div>
 </body>
 </html>
